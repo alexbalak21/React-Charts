@@ -8,6 +8,7 @@ import PureBarChart from "./components/PureBarChart";
 import PureVerticalBarChart from "./components/PureVerticalBarChart";
 import PureTicketsPerAgentPriority from "./components/PureTicketsPerAgentPriority";
 import PureGroupedAgentPriorityChart from "./components/PureGroupedAgentPriorityChart";
+import PureDonutPerAgent from "./components/PureDonutPerAgent";
 
 export default function App() {
   /* -------------------------------------------------------
@@ -94,6 +95,13 @@ export default function App() {
         priorities={priorities}
         tickets={tickets}
       />
+
+      <PureDonutPerAgent
+        agents={agents}
+        priorities={priorities}
+        tickets={tickets}
+      />
+
     </div>
   );
 }
