@@ -26,19 +26,19 @@ export default function PureVerticalBarChart({ title, bars }: Props) {
               key={b.label}
               className="flex flex-col items-center w-16 h-full"
             >
+              {/* LABEL ON TOP */}
+              <div className="mb-2 text-xs text-gray-700 dark:text-gray-300 text-center w-full">
+                {b.label}
+              </div>
+
               {/* BAR */}
               <div
                 className="w-6 bg-indigo-500 rounded-t"
                 style={{ height: `${height}%` }}
               />
 
-              {/* LABEL */}
-              <div className="mt-2 text-xs text-gray-700 dark:text-gray-300 text-center w-full">
-                {b.label}
-              </div>
-
-              {/* VALUE */}
-              <div className="text-xs text-gray-500 dark:text-gray-400">
+              {/* VALUE BELOW */}
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
                 {b.value}
               </div>
             </div>

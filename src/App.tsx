@@ -6,15 +6,20 @@ import statuses from "../data/statuses.json";
 import PureDonut from "./components/PureDonut";
 import PureBarChart from "./components/PureBarChart";
 import PureVerticalBarChart from "./components/PureVerticalBarChart";
+import PureTicketsPerAgentPriority from "./components/PureTicketsPerAgentPriority";
 
 export default function App() {
-  // SUPPORT agents only
-  const agents = users.filter(u => u.roles.includes("SUPPORT"));
+  /* -------------------------------------------------------
+   *  DATA FILTERING
+   * ----------------------------------------------------- */
 
-  // USERS only (exclude SUPPORT, ADMIN, MANAGER)
+  const agents = users.filter(u => u.roles.includes("SUPPORT"));
   const normalUsers = users.filter(u => u.roles.includes("USER"));
 
-  // Donut: Tickets by Priority
+  /* -------------------------------------------------------
+   *  DONUT CHART DATA
+   * ----------------------------------------------------- */
+
   const prioritySlices = priorities.map(p => ({
     label: p.name,
     value: tickets.filter(t => t.priorityId === p.id).length,
@@ -25,7 +30,6 @@ export default function App() {
       p.color === "red" ? "#ef4444" : "#6b7280"
   }));
 
-  // Donut: Tickets by Status
   const statusSlices = statuses.map(s => ({
     label: s.name,
     value: tickets.filter(t => t.statusId === s.id).length,
@@ -39,17 +43,23 @@ export default function App() {
       s.color === "brown" ? "#92400e" : "#6b7280"
   }));
 
-  // Bar: Tickets per Support Agent
+  /* -------------------------------------------------------
+   *  BAR CHART DATA
+   * ----------------------------------------------------- */
+
   const agentBars = agents.map(a => ({
     label: a.name,
     value: tickets.filter(t => t.assignedTo === a.id).length
   }));
 
-  // Bar: Tickets per USER only
   const userBars = normalUsers.map(u => ({
     label: u.name,
     value: tickets.filter(t => t.createdBy === u.id).length
   }));
+
+  /* -------------------------------------------------------
+   *  RENDER
+   * ----------------------------------------------------- */
 
   return (
     <div className="p-8 space-y-8 bg-gray-100 dark:bg-gray-950 min-h-screen">
@@ -57,17 +67,25 @@ export default function App() {
         Manager Dashboard
       </h1>
 
+      {/* ------------------ ROW 1: DONUTS ------------------ */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <PureDonut title="Tickets by Priority" slices={prioritySlices} />
         <PureDonut title="Tickets by Status" slices={statusSlices} />
       </div>
 
+      {/* ------------------ ROW 2: BARS ------------------ */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <PureBarChart title="Tickets per Support Agent" bars={agentBars} />
-
-        {/* HERE is the vertical chart */}
         <PureVerticalBarChart title="Tickets per User" bars={userBars} />
       </div>
+
+      {/* ------------------ ROW 3: 2D MATRIX ------------------ */}
+      <PureTicketsPerAgentPriority
+        title="Tickets per Agent × Priority"
+        agents={agents}
+        priorities={priorities}
+        tickets={tickets}
+      />
     </div>
   );
 }
