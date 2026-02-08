@@ -7,6 +7,7 @@ import PureDonut from "./components/PureDonut";
 import PureBarChart from "./components/PureBarChart";
 import PureVerticalBarChart from "./components/PureVerticalBarChart";
 import PureTicketsPerAgentPriority from "./components/PureTicketsPerAgentPriority";
+import PureGroupedAgentPriorityChart from "./components/PureGroupedAgentPriorityChart";
 
 export default function App() {
   /* -------------------------------------------------------
@@ -25,9 +26,9 @@ export default function App() {
     value: tickets.filter(t => t.priorityId === p.id).length,
     color:
       p.color === "green" ? "#22c55e" :
-      p.color === "yellow" ? "#eab308" :
-      p.color === "orange" ? "#f97316" :
-      p.color === "red" ? "#ef4444" : "#6b7280"
+        p.color === "yellow" ? "#eab308" :
+          p.color === "orange" ? "#f97316" :
+            p.color === "red" ? "#ef4444" : "#6b7280"
   }));
 
   const statusSlices = statuses.map(s => ({
@@ -35,12 +36,12 @@ export default function App() {
     value: tickets.filter(t => t.statusId === s.id).length,
     color:
       s.color === "blue" ? "#3b82f6" :
-      s.color === "violet" ? "#8b5cf6" :
-      s.color === "yellow" ? "#eab308" :
-      s.color === "orange" ? "#f97316" :
-      s.color === "green" ? "#22c55e" :
-      s.color === "gray" ? "#6b7280" :
-      s.color === "brown" ? "#92400e" : "#6b7280"
+        s.color === "violet" ? "#8b5cf6" :
+          s.color === "yellow" ? "#eab308" :
+            s.color === "orange" ? "#f97316" :
+              s.color === "green" ? "#22c55e" :
+                s.color === "gray" ? "#6b7280" :
+                  s.color === "brown" ? "#92400e" : "#6b7280"
   }));
 
   /* -------------------------------------------------------
@@ -81,6 +82,13 @@ export default function App() {
 
       {/* ------------------ ROW 3: 2D MATRIX ------------------ */}
       <PureTicketsPerAgentPriority
+        title="Tickets per Agent × Priority"
+        agents={agents}
+        priorities={priorities}
+        tickets={tickets}
+      />
+
+      <PureGroupedAgentPriorityChart
         title="Tickets per Agent × Priority"
         agents={agents}
         priorities={priorities}
