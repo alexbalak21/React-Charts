@@ -22,7 +22,10 @@ export default function PureVerticalBarChart({ title, bars }: Props) {
           const height = (b.value / max) * 100;
 
           return (
-            <div key={b.label} className="flex flex-col items-center w-12">
+            <div
+              key={b.label}
+              className="flex flex-col items-center w-16 h-full"
+            >
               {/* BAR */}
               <div
                 className="w-6 bg-indigo-500 rounded-t"
