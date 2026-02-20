@@ -1,6 +1,7 @@
 interface Bar {
   label: string;
   value: number;
+  color?: string;
 }
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
   bars: Bar[];
 }
 
-export default function PureBarChart({ title, bars }: Props) {
+export default function HorizontalBarChart({ title, bars }: Props) {
   const max = Math.max(...bars.map(b => b.value), 1);
 
   return (
@@ -27,13 +28,12 @@ export default function PureBarChart({ title, bars }: Props) {
             
             <div className="w-full bg-gray-200 dark:bg-gray-700 h-3 rounded">
               <div
-                className="h-3 rounded bg-indigo-500"
+                className={`h-3 rounded ${b.color || 'bg-indigo-500'}`}
                 style={{ width: `${(b.value / max) * 100}%` }}
               />
             </div>
           </div>
         ))}
-        
       </div>
     </div>
   );
